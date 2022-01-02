@@ -5,12 +5,15 @@ using UnityEngine;
 
 public class Waves : MonoBehaviour
 {
+    public RenderTexture InteractiveRT;
     public RenderTexture PrevRT;
     public RenderTexture CurrentRT;
     public RenderTexture TempRT;
     public Shader RippleShader;
     public Shader drawShader;
+    public Shader AddShader;
     public Material waterShader;
+    public Material AddMat;
     private Material RippleMat;
     private Material drawMat;
     [Range(0,1)]
@@ -23,9 +26,10 @@ public class Waves : MonoBehaviour
         TempRT = CreateRT();
         PrevRT = CreateRT();
 
+        AddMat = new Material(AddShader);
         drawMat = new Material(drawShader);
         RippleMat = new Material(RippleShader);
-        GetComponent<Renderer>().material.mainTexture = CurrentRT;
+        //GetComponent<Renderer>().material.mainTexture = CurrentRT;
     }
 
     public RenderTexture CreateRT()
@@ -35,7 +39,7 @@ public class Waves : MonoBehaviour
         return rt;
     }
 
-    private void DrawAt(float x, float y, float radius)
+    public void DrawAt(float x, float y, float radius)
     {
         drawMat.SetTexture("_SourceTex",CurrentRT);
         drawMat.SetVector("_Pos", new Vector4(x,y,radius));
@@ -58,6 +62,12 @@ public class Waves : MonoBehaviour
                 DrawAt(hit.textureCoord.x,hit.textureCoord.y,DrawRadius);
             }
         }
+        AddMat.SetTexture("_Tex1",InteractiveRT);
+        AddMat.SetTexture("_Tex2", CurrentRT);
+        Graphics.Blit(null,TempRT,AddMat);
+        RenderTexture rt0 = TempRT;
+        TempRT = CurrentRT;
+        CurrentRT = rt0;
         
         waterShader.SetTexture("_RippleTexture",CurrentRT);
         
