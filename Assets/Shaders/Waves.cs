@@ -10,6 +10,7 @@ public class Waves : MonoBehaviour
     public RenderTexture TempRT;
     public Shader RippleShader;
     public Shader drawShader;
+    public Material waterShader;
     private Material RippleMat;
     private Material drawMat;
     [Range(0,1)]
@@ -57,6 +58,8 @@ public class Waves : MonoBehaviour
                 DrawAt(hit.textureCoord.x,hit.textureCoord.y,DrawRadius);
             }
         }
+        
+        waterShader.SetTexture("_RippleTexture",CurrentRT);
         
         RippleMat.SetTexture("_PrevRT",PrevRT);
         RippleMat.SetTexture("_CurrentRT",CurrentRT);
