@@ -42,31 +42,37 @@ Shader "Unlit/RippleShader"
 
             fixed4 frag (v2f i) : SV_Target
             {
+                
+                fixed dir0 = abs(sin(_Time.z));
+                fixed dir1 = abs(cos(_Time.z));
+                fixed dir2 = -abs(sin(_Time.w));
+                fixed dir3 = -abs(cos(_Time.w));
+
                 float3 e = float3(_CurrentRT_TexelSize.xy,0);
                 float2 uv = i.uv;
                 
                 float p10 = tex2D(_CurrentRT, uv - e.zy).x; // down
                 float p01 = tex2D(_CurrentRT, uv - e.xz).x; // left
-                float p21 = tex2D(_CurrentRT, uv + e.xz).x; // right
+                float p21 = tex2D(_CurrentRT, uv + e.xz ).x; // right
                 float p12 = tex2D(_CurrentRT, uv + e.zy).x; // up
 
                 float p11 = tex2D(_PrevRT, uv).x;
 
-                fixed4 d;
-                d.x = (p10 + p01 + p21 + p12)/2 - p11;
-                d.x *= 0.99;
+                float d;
+                d = (p10 + p01 + p21 + p12)/2 - p11;
+                
+                d *= 0.99;
 
-                d.x = d.x * step(0.05f, d.x);
+                //d.x = d.x * step(0.05f, d.x);
 
-                d.y = step(0.01f, p21 - p01);
-                d.z = step(0.01f, p12 - p10);
+                //d.y = step(0.01f, p21 - p01);
+                //d.z = step(0.01f, p12 - p10);
                 //d.y = step(p01, p21);
                 //d.z = step(p10, p12);
 
-                d.w = 1;
+                //d.w = 1;
 
                 return d;
-
             }
             ENDCG
         }

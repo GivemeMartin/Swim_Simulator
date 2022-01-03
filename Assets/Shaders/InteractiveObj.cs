@@ -6,7 +6,7 @@ public class InteractiveObj : MonoBehaviour
 {
     public float rippleInterval;
     public float rippleTimer;
-
+    
     // Update is called once per frame
     void Update()
     {
