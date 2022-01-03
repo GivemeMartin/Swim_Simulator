@@ -21,6 +21,9 @@ public class Waves : MonoBehaviour
     public float DrawRadius = 0.2f;
     public int textureSize = 512;
 
+    public float rippleInterval = 1f;
+    public float rippleTimer = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,13 +58,18 @@ public class Waves : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        rippleTimer += Time.deltaTime;
+        if (rippleTimer > rippleInterval)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            rippleTimer = 0f;
+            if (Input.GetMouseButton(0))
             {
-                DrawAt(hit.textureCoord.x, hit.textureCoord.y, DrawRadius);
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit))
+                {
+                    DrawAt(hit.textureCoord.x, hit.textureCoord.y, DrawRadius);
+                }
             }
         }
         AddMat.SetTexture("_Tex1", InteractiveRT);

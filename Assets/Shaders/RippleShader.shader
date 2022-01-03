@@ -45,10 +45,10 @@ Shader "Unlit/RippleShader"
                 float3 e = float3(_CurrentRT_TexelSize.xy,0);
                 float2 uv = i.uv;
                 
-                float p10 = tex2D(_CurrentRT, uv - e.zy).x;
-                float p01 = tex2D(_CurrentRT, uv - e.xz).x;
-                float p21 = tex2D(_CurrentRT, uv + e.xz).x;
-                float p12 = tex2D(_CurrentRT, uv + e.zy).x;
+                float p10 = tex2D(_CurrentRT, uv - e.zy).x; // down
+                float p01 = tex2D(_CurrentRT, uv - e.xz).x; // left
+                float p21 = tex2D(_CurrentRT, uv + e.xz).x; // right
+                float p12 = tex2D(_CurrentRT, uv + e.zy).x; // up
 
                 float p11 = tex2D(_PrevRT, uv).x;
 
@@ -56,8 +56,14 @@ Shader "Unlit/RippleShader"
                 d.x = (p10 + p01 + p21 + p12)/2 - p11;
                 d.x *= 0.99;
 
-                d.y = p10 + p12;
-                d.z = p01 + p21;
+                d.x = d.x * step(0.01f, d.x);
+
+                d.y = step(0.01f, p21 - p01);
+                d.z = step(0.01f, p12 - p10);
+                //d.y = step(p01, p21);
+                //d.z = step(p10, p12);
+
+                d.w = 1;
 
                 return d;
 
