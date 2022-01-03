@@ -51,9 +51,16 @@ Shader "Unlit/RippleShader"
                 float p12 = tex2D(_CurrentRT, uv + e.zy).x;
 
                 float p11 = tex2D(_PrevRT, uv).x;
-                float d = (p10 + p01 + p21 + p12)/2 - p11;
-                d *= 0.99;
+
+                fixed4 d;
+                d.x = (p10 + p01 + p21 + p12)/2 - p11;
+                d.x *= 0.99;
+
+                d.y = p10 + p12;
+                d.z = p01 + p21;
+
                 return d;
+
             }
             ENDCG
         }

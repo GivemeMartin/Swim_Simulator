@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Waves : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Waves : MonoBehaviour
     [Range(0,1)]
     public float DrawRadius = 0.2f;
     public int textureSize = 512;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +36,7 @@ public class Waves : MonoBehaviour
 
     public RenderTexture CreateRT()
     {
-        RenderTexture rt = new RenderTexture(textureSize,textureSize,0,RenderTextureFormat.RFloat);
+        RenderTexture rt = new RenderTexture(textureSize,textureSize,0,RenderTextureFormat.ARGB32);
         rt.Create();
         return rt;
     }
@@ -59,24 +61,26 @@ public class Waves : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                DrawAt(hit.textureCoord.x,hit.textureCoord.y,DrawRadius);
+                DrawAt(hit.textureCoord.x, hit.textureCoord.y, DrawRadius);
             }
         }
-        AddMat.SetTexture("_Tex1",InteractiveRT);
+        AddMat.SetTexture("_Tex1", InteractiveRT);
         AddMat.SetTexture("_Tex2", CurrentRT);
-        Graphics.Blit(null,TempRT,AddMat);
+        Graphics.Blit(null, TempRT, AddMat);
         RenderTexture rt0 = TempRT;
         TempRT = CurrentRT;
         CurrentRT = rt0;
-        
-        waterShader.SetTexture("_RippleTexture",CurrentRT);
-        
-        RippleMat.SetTexture("_PrevRT",PrevRT);
-        RippleMat.SetTexture("_CurrentRT",CurrentRT);
-        Graphics.Blit(null,TempRT,RippleMat);
-        Graphics.Blit(TempRT,PrevRT);
+
+        waterShader.SetTexture("_RippleTexture", CurrentRT);
+
+        RippleMat.SetTexture("_PrevRT", PrevRT);
+        RippleMat.SetTexture("_CurrentRT", CurrentRT);
+        Graphics.Blit(null, TempRT, RippleMat);
+        Graphics.Blit(TempRT, PrevRT);
         RenderTexture rt = PrevRT;
         PrevRT = CurrentRT;
         CurrentRT = rt;
+
     }
+
 }
