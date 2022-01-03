@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &194001451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,7 +444,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f5e5bef16e1f042a7c39ba5db06894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastPos: {x: 0, y: 0, z: 0}
+  rippleInterval: 1
+  rippleTimer: 0
 --- !u!1 &537956000
 GameObject:
   m_ObjectHideFlags: 3
@@ -807,7 +808,7 @@ GameObject:
   - component: {fileID: 1472457807}
   - component: {fileID: 1472457806}
   - component: {fileID: 1472457810}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -914,7 +915,7 @@ MonoBehaviour:
   AddMat: {fileID: 0}
   DrawRadius: 0.2
   textureSize: 512
-  rippleInterval: 1
+  rippleInterval: 0.05
   rippleTimer: 0
 --- !u!1 &1483137035
 GameObject:
@@ -1175,7 +1176,8 @@ GameObject:
   - component: {fileID: 1585029766}
   - component: {fileID: 1585029765}
   - component: {fileID: 1585029764}
-  m_Layer: 0
+  - component: {fileID: 1585029768}
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1258,6 +1260,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1585029768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585029763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f5e5bef16e1f042a7c39ba5db06894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rippleInterval: 1
+  rippleTimer: 0
 --- !u!1 &1613702758
 GameObject:
   m_ObjectHideFlags: 0

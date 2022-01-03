@@ -56,7 +56,7 @@ Shader "Unlit/RippleShader"
                 d.x = (p10 + p01 + p21 + p12)/2 - p11;
                 d.x *= 0.99;
 
-                d.x = d.x * step(0.01f, d.x);
+                d.x = d.x * step(0.05f, d.x);
 
                 d.y = step(0.01f, p21 - p01);
                 d.z = step(0.01f, p12 - p10);

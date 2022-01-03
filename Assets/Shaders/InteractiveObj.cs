@@ -4,26 +4,21 @@ using UnityEngine;
 
 public class InteractiveObj : MonoBehaviour
 {
-    public Vector3 lastPos;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        lastPos = transform.position;
-    }
+    public float rippleInterval;
+    public float rippleTimer;
 
     // Update is called once per frame
     void Update()
     {
-        if ((transform.position - lastPos).sqrMagnitude > 0.1f)
+        rippleTimer += Time.deltaTime;
+        if (rippleTimer > rippleInterval)
         {
-            lastPos = transform.position;
+            rippleTimer = 0f;
             gameObject.layer = 6;
         }
         else
         {
             gameObject.layer = 0;
         }
-            
     }
 }

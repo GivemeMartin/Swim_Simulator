@@ -21,7 +21,7 @@ public class Waves : MonoBehaviour
     public float DrawRadius = 0.2f;
     public int textureSize = 512;
 
-    public float rippleInterval = 1f;
+    public float rippleInterval = 0.01f;
     public float rippleTimer = 0f;
 
     // Start is called before the first frame update
@@ -71,23 +71,23 @@ public class Waves : MonoBehaviour
                     DrawAt(hit.textureCoord.x, hit.textureCoord.y, DrawRadius);
                 }
             }
+            AddMat.SetTexture("_Tex1", InteractiveRT);
+            AddMat.SetTexture("_Tex2", CurrentRT);
+            Graphics.Blit(null, TempRT, AddMat);
+            RenderTexture rt0 = TempRT;
+            TempRT = CurrentRT;
+            CurrentRT = rt0;
+
+            waterShader.SetTexture("_RippleTexture", CurrentRT);
+
+            RippleMat.SetTexture("_PrevRT", PrevRT);
+            RippleMat.SetTexture("_CurrentRT", CurrentRT);
+            Graphics.Blit(null, TempRT, RippleMat);
+            Graphics.Blit(TempRT, PrevRT);
+            RenderTexture rt = PrevRT;
+            PrevRT = CurrentRT;
+            CurrentRT = rt;
         }
-        AddMat.SetTexture("_Tex1", InteractiveRT);
-        AddMat.SetTexture("_Tex2", CurrentRT);
-        Graphics.Blit(null, TempRT, AddMat);
-        RenderTexture rt0 = TempRT;
-        TempRT = CurrentRT;
-        CurrentRT = rt0;
-
-        waterShader.SetTexture("_RippleTexture", CurrentRT);
-
-        RippleMat.SetTexture("_PrevRT", PrevRT);
-        RippleMat.SetTexture("_CurrentRT", CurrentRT);
-        Graphics.Blit(null, TempRT, RippleMat);
-        Graphics.Blit(TempRT, PrevRT);
-        RenderTexture rt = PrevRT;
-        PrevRT = CurrentRT;
-        CurrentRT = rt;
 
     }
 
