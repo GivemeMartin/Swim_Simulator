@@ -58,7 +58,7 @@ Shader "Unlit/RippleShader"
 
                 float p11 = tex2D(_PrevRT, uv).x;
 
-                float d;
+                fixed4 d;
                 d = (p10 + p01 + p21 + p12)/2 - p11;
                 
                 d *= 0.99;

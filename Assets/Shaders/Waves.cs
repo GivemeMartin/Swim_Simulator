@@ -76,7 +76,7 @@ public class Waves : MonoBehaviour
         CurrentRT = rt0;
 
         waterShader.SetTexture("_RippleTexture", CurrentRT);
-
+        waterShader.SetTexture("_InteraciveTex",InteractiveRT);
         RippleMat.SetTexture("_PrevRT", PrevRT);
         RippleMat.SetTexture("_CurrentRT", CurrentRT);
         Graphics.Blit(null, TempRT, RippleMat);

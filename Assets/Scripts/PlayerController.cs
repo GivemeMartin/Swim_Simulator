@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float turnSpeed = 360.0f;
 
+    [SerializeField] 
+    private ParticleSystem bubbles;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +31,15 @@ public class PlayerController : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
         cachedMoveDirection = new Vector3(horizontalInput, 0, verticalInput);
         cachedMoveDirection.Normalize();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            bubbles.Play();
+        }
+        else if(Input.GetKeyUp(KeyCode.Space))
+        {
+            bubbles.Stop();
+        }
     }
 
     private void FixedUpdate()

@@ -11,9 +11,9 @@ public class InteractiveObj : MonoBehaviour
     void Update()
     {
         rippleTimer += Time.deltaTime;
-        if (rippleTimer > rippleInterval)
+        if (transform.parent.GetComponent<Rigidbody>().velocity != Vector3.zero)
         {
-            rippleTimer = 0f;
+            //rippleTimer = 0f;
             gameObject.layer = 6;
         }
         else
