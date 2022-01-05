@@ -10,7 +10,8 @@ public class MeshVertexLineRenderer : MonoBehaviour
     private void Start()
     {
         AddLine();
-        transform.GetChild(0).position -= Vector3.up * 0.01f; 
+        transform.GetChild(0).position -= Vector3.up * 0.01f;
+        transform.GetChild(0).transform.localScale = Vector3.one;
     }
 
     public void AddLine()
@@ -46,7 +47,7 @@ public class MeshVertexLineRenderer : MonoBehaviour
         lineRenderer.motionVectorGenerationMode = MotionVectorGenerationMode.ForceNoMotion;
         lineRenderer.useWorldSpace = false;
         lineRenderer.loop = true;
-        lineRenderer.widthMultiplier = 0.1f;
+        lineRenderer.widthMultiplier = 0.3f;
         lineRenderer.sortingLayerName = "GamePlay";
         lineRenderer.sortingOrder = 501;
         lineRenderer.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.Off;
