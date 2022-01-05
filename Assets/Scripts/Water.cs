@@ -4,8 +4,9 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class Waves : MonoBehaviour
+public class Water : MonoBehaviour
 {
+
     public RenderTexture InteractiveRT;
     public RenderTexture PrevRT;
     public RenderTexture CurrentRT;
@@ -13,18 +14,17 @@ public class Waves : MonoBehaviour
     public Shader RippleShader;
     public Shader drawShader;
     public Shader AddShader;
-    public Material waterShader;
-    public Material AddMat;
+    public Material waterMat;
+    private Material AddMat;
     private Material RippleMat;
     private Material drawMat;
     [Range(0,1)]
     public float DrawRadius = 0.2f;
     public int textureSize = 512;
 
-    public float rippleInterval = 0.01f;
+    public float rippleInterval = 0.02f;
     public float rippleTimer = 0f;
 
-    // Start is called before the first frame update
     void Start()
     {
         CurrentRT = CreateRT();
@@ -34,7 +34,6 @@ public class Waves : MonoBehaviour
         AddMat = new Material(AddShader);
         drawMat = new Material(drawShader);
         RippleMat = new Material(RippleShader);
-        //GetComponent<Renderer>().material.mainTexture = CurrentRT;
     }
 
     public RenderTexture CreateRT()
@@ -53,12 +52,12 @@ public class Waves : MonoBehaviour
         RenderTexture rt = TempRT;
         TempRT = CurrentRT;
         CurrentRT = rt;
+
     }
     
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0))
+/*        if (Input.GetMouseButton(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -66,24 +65,30 @@ public class Waves : MonoBehaviour
             {
                 DrawAt(hit.textureCoord.x, hit.textureCoord.y, DrawRadius);
             }
-        }
-        
-        AddMat.SetTexture("_Tex1", InteractiveRT);
-        AddMat.SetTexture("_Tex2", CurrentRT);
-        Graphics.Blit(null, TempRT, AddMat);
-        RenderTexture rt0 = TempRT;
-        TempRT = CurrentRT;
-        CurrentRT = rt0;
+        }*/
 
-        waterShader.SetTexture("_RippleTexture", CurrentRT);
-        waterShader.SetTexture("_InteraciveTex",InteractiveRT);
-        RippleMat.SetTexture("_PrevRT", PrevRT);
-        RippleMat.SetTexture("_CurrentRT", CurrentRT);
-        Graphics.Blit(null, TempRT, RippleMat);
-        Graphics.Blit(TempRT, PrevRT);
-        RenderTexture rt = PrevRT;
-        PrevRT = CurrentRT;
-        CurrentRT = rt;
+        rippleTimer += Time.deltaTime;
+        if (rippleTimer > rippleInterval)
+        {
+            rippleTimer = 0;
+            AddMat.SetTexture("_Tex1", InteractiveRT);
+            AddMat.SetTexture("_Tex2", CurrentRT);
+            Graphics.Blit(null, TempRT, AddMat);
+            RenderTexture rt0 = TempRT;
+            TempRT = CurrentRT;
+            CurrentRT = rt0;
+
+            waterMat.SetTexture("_RippleTexture", CurrentRT);
+            waterMat.SetTexture("_InteraciveTex", InteractiveRT);
+            RippleMat.SetTexture("_PrevRT", PrevRT);
+            RippleMat.SetTexture("_CurrentRT", CurrentRT);
+            Graphics.Blit(null, TempRT, RippleMat);
+            Graphics.Blit(TempRT, PrevRT);
+            RenderTexture rt = PrevRT;
+            PrevRT = CurrentRT;
+            CurrentRT = rt;
+        }
+
     }
 
 }

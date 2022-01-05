@@ -1,13 +1,12 @@
-Shader "Unlit/DrawShader"
+Shader "Unlit/InteractiveObjectShader"
 {
     Properties
     {
-
+        _Radius ("Radius", Float) = 0.2
     }
     SubShader
     {
         Tags { "RenderType"="Opaque" }
-        LOD 100
 
         Pass
         {
@@ -23,8 +22,9 @@ Shader "Unlit/DrawShader"
                 float2 uv : TEXCOORD0;
             };
             
-            sampler2D _SourceTex;
             float4 _Pos;
+            float _Radius;
+            float _Ratio;
             
             struct v2f
             {
@@ -43,7 +43,7 @@ Shader "Unlit/DrawShader"
             fixed4 frag (v2f i) : SV_Target
             {
                 float2 uv = i.uv;
-                return max(_Pos.z - length(uv-_Pos.xy) / _Pos.z,0) + tex2D(_SourceTex,uv).x;
+                return max(_Radius - length(uv - float2(0.5, 0.5)) / _Radius,0);
             }
             ENDCG
         }

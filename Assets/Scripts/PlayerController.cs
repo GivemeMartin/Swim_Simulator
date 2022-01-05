@@ -11,17 +11,25 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
 
     [SerializeField]
-    private float moveSpeed = 2.0f;
+    private float moveSpeed = 5.0f;
+    [SerializeField]
+    private float fastMoveSpeed = 8.0f;
     [SerializeField]
     private float turnSpeed = 360.0f;
 
     [SerializeField] 
     private ParticleSystem bubbles;
 
+    [SerializeField]
+    private ParticleSystem bubblesInteract;
+
+    private float currentMoveSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        currentMoveSpeed = moveSpeed;
     }
 
     // Update is called once per frame
@@ -35,16 +43,20 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             bubbles.Play();
+            currentMoveSpeed = fastMoveSpeed;
+
         }
         else if(Input.GetKeyUp(KeyCode.Space))
         {
             bubbles.Stop();
+            currentMoveSpeed = moveSpeed;
+
         }
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = rb.velocity = cachedMoveDirection * moveSpeed;
+        rb.velocity = rb.velocity = cachedMoveDirection * currentMoveSpeed;
 
         if (cachedMoveDirection != Vector3.zero)
         {
