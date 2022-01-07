@@ -47,7 +47,7 @@ public class MeshVertexLineRenderer : MonoBehaviour
         lineRenderer.motionVectorGenerationMode = MotionVectorGenerationMode.ForceNoMotion;
         lineRenderer.useWorldSpace = false;
         lineRenderer.loop = true;
-        lineRenderer.widthMultiplier = 0.3f;
+        lineRenderer.widthMultiplier = 0.5f;
         lineRenderer.sortingLayerName = "GamePlay";
         lineRenderer.sortingOrder = 501;
         lineRenderer.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.Off;

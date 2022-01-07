@@ -83,8 +83,8 @@ public class Water : MonoBehaviour
 
             waterMat.SetTexture("_RippleTexture", CurrentRT);
             waterMat.SetTexture("_InteraciveTex", InteractiveRT);
-            shoreMat.SetTexture("_RippleTexture", CurrentRT);
-            rippleTestMat.SetTexture("_RippleTexture", CurrentRT);
+            //shoreMat.SetTexture("_RippleTexture", CurrentRT);
+            //rippleTestMat.SetTexture("_RippleTexture", CurrentRT);
 
             RippleMat.SetTexture("_PrevRT", PrevRT);
             RippleMat.SetTexture("_CurrentRT", CurrentRT);
