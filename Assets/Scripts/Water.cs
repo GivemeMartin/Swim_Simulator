@@ -25,6 +25,9 @@ public class Water : MonoBehaviour
     public float rippleInterval = 0.02f;
     public float rippleTimer = 0f;
 
+    public Material shoreMat;
+    public Material rippleTestMat;
+
     void Start()
     {
         CurrentRT = CreateRT();
@@ -57,7 +60,7 @@ public class Water : MonoBehaviour
     
     void Update()
     {
-/*        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -65,7 +68,7 @@ public class Water : MonoBehaviour
             {
                 DrawAt(hit.textureCoord.x, hit.textureCoord.y, DrawRadius);
             }
-        }*/
+        }
 
         rippleTimer += Time.deltaTime;
         if (rippleTimer > rippleInterval)
@@ -80,6 +83,9 @@ public class Water : MonoBehaviour
 
             waterMat.SetTexture("_RippleTexture", CurrentRT);
             waterMat.SetTexture("_InteraciveTex", InteractiveRT);
+            shoreMat.SetTexture("_RippleTexture", CurrentRT);
+            rippleTestMat.SetTexture("_RippleTexture", CurrentRT);
+
             RippleMat.SetTexture("_PrevRT", PrevRT);
             RippleMat.SetTexture("_CurrentRT", CurrentRT);
             Graphics.Blit(null, TempRT, RippleMat);
