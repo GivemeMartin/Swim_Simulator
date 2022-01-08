@@ -17,11 +17,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float turnSpeed = 360.0f;
 
+    [SerializeField]
+    private GameObject sceneObjects;
+    private Rigidbody sceneObjectsRB;
+
+    [Header("»î¶¯ÇøÓò")]
+    [SerializeField]
+    private BoxCollider activeAreaCollider;
+
     [SerializeField] 
     private ParticleSystem bubbles;
-
-    [SerializeField]
-    private ParticleSystem bubblesInteract;
 
     private float currentMoveSpeed;
 
@@ -29,6 +34,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        sceneObjectsRB = sceneObjects.GetComponent<Rigidbody>();
         currentMoveSpeed = moveSpeed;
     }
 
@@ -56,7 +62,17 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = rb.velocity = cachedMoveDirection * currentMoveSpeed;
+        if (IsInActiveArea())
+        {
+            rb.velocity = cachedMoveDirection * currentMoveSpeed;
+            sceneObjectsRB.velocity = Vector3.zero;
+        }
+        else
+        {
+            rb.velocity = Vector3.zero;
+            sceneObjectsRB.velocity = -cachedMoveDirection * currentMoveSpeed;
+        }
+        //sceneObjectsRB.velocity = -cachedMoveDirection * currentMoveSpeed;
 
         if (cachedMoveDirection != Vector3.zero)
         {
@@ -65,6 +81,13 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, q, 0.2f);
         }
 
+    }
+
+    private bool IsInActiveArea()
+    {
+        Bounds bounds = activeAreaCollider.bounds;
+        return bounds.Contains(transform.position)
+            || Vector3.Dot(cachedMoveDirection, transform.position) <= 0;
     }
 
 }
