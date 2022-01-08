@@ -22,7 +22,7 @@ public class Water : MonoBehaviour
     public float DrawRadius = 0.2f;
     public int textureSize = 512;
 
-    public float rippleInterval = 0.02f;
+    public float rippleInterval = 0.016f;
     public float rippleTimer = 0f;
 
     void Start()

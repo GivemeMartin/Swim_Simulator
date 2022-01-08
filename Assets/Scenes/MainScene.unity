@@ -5320,6 +5320,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShoreWaves
       objectReference: {fileID: 0}
+    - target: {fileID: 3976038002897230311, guid: 16c4d109dbae703468673ae1c062063c, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5248872710702060513, guid: 16c4d109dbae703468673ae1c062063c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -10794,7 +10798,7 @@ Transform:
   m_GameObject: {fileID: 1472457805}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_LocalScale: {x: 2, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
