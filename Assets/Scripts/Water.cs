@@ -25,9 +25,6 @@ public class Water : MonoBehaviour
     public float rippleInterval = 0.02f;
     public float rippleTimer = 0f;
 
-    public Material shoreMat;
-    public Material rippleTestMat;
-
     void Start()
     {
         CurrentRT = CreateRT();
@@ -82,9 +79,6 @@ public class Water : MonoBehaviour
             CurrentRT = rt0;
 
             waterMat.SetTexture("_RippleTexture", CurrentRT);
-            waterMat.SetTexture("_InteraciveTex", InteractiveRT);
-            //shoreMat.SetTexture("_RippleTexture", CurrentRT);
-            //rippleTestMat.SetTexture("_RippleTexture", CurrentRT);
 
             RippleMat.SetTexture("_PrevRT", PrevRT);
             RippleMat.SetTexture("_CurrentRT", CurrentRT);
