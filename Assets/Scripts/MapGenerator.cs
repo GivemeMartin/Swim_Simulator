@@ -4,32 +4,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+struct LineVert
+{
+    public Vector3 vertices;
+    public Vector2 insideDir;
+    public bool isAdded;
+}
+
 public class MapGenerator : MonoBehaviour
 {
-    [Header("采样次数")]
-    public int gridW = 250;
+    [Header("采样次数")] public int gridW = 250;
     public int gridH = 250;
-    [Header("尺寸")]
-    public int width = 1080;
+    [Header("尺寸")] public int width = 1080;
 
     public float scale;
-    
-    public RenderTexture interactiveMap;
-    [SerializeField] 
-    private Texture2D tex = null;
 
-    private void Start()
-    {
-        
-    }
+    public RenderTexture interactiveMap;
+    [SerializeField] private Texture2D tex = null;
+    public Material shoreMaterial;
 
     //根据RenderTexture 创建 Texture2D 方便读取
-    public void GenerateTexture2D()
-    {    //在每次相机渲染完成时再删除上一帧的texture
-        if(tex != null)
+    public void GenerateVertices()
+    {
+        //在每次相机渲染完成时再删除上一帧的texture
+        if (tex != null)
         {
-            Destroy(tex);
+            DestroyImmediate(tex);
         }
+
         //设定当前RenderTexture为快照相机的targetTexture
         RenderTexture.active = interactiveMap;
         tex = new Texture2D(interactiveMap.width, interactiveMap.height);
@@ -37,144 +39,147 @@ public class MapGenerator : MonoBehaviour
         tex.ReadPixels(new Rect(0, 0, interactiveMap.width, interactiveMap.height), 0, 0);
         tex.Apply();
     }
-    
+
     private int hVertCount = 0, wVertCount = 0;
-    private Vector3[] _vertices;
-    private Vector2[] _uvs;
-    private int[] _triangles;
-    private Mesh _mesh;
-    private Color[] _color;
-    private int verCount = 0;
+    private static List<LineVert> lineVerts;
+    public GameObject inst;
     public void GeneratorTerrain()
     {
-        float wStep = (tex.width - 1) / (float)gridW;
-        float hStep = (tex.height - 1) / (float)gridH;
+        Debug.Log("Generating");
+        float wStep = (tex.width - 1) / (float) gridW;
+        float hStep = (tex.height - 1) / (float) gridH;
 
         wVertCount = gridW + 1;
         hVertCount = gridH + 1;
-    
-        _vertices = new Vector3[wVertCount * hVertCount];
-        _color = new Color[_vertices.Length];
-        
+
+        lineVerts = new List<LineVert>();
+
         for (int x = 0; x < wVertCount; x++)
         {
             for (int y = 0; y < hVertCount; y++)
             {
-                float mid = tex.GetPixel(Mathf.FloorToInt(x * wStep),Mathf.FloorToInt(y * hStep)).a;
-                float up = tex.GetPixel(Mathf.FloorToInt(x * wStep),Mathf.FloorToInt((y-1) * hStep)).a;
-                float down = tex.GetPixel(Mathf.FloorToInt(x * wStep),Mathf.FloorToInt((y+1) * hStep)).a;
-                float left = tex.GetPixel(Mathf.FloorToInt((x-1) * wStep),Mathf.FloorToInt(y * hStep)).a;
-                float right = tex.GetPixel(Mathf.FloorToInt((x+1) * wStep),Mathf.FloorToInt(y * hStep)).a;
+                float mid = tex.GetPixel(Mathf.FloorToInt(x * wStep), Mathf.FloorToInt(y * hStep)).a;
+                float up = tex.GetPixel(Mathf.FloorToInt(x * wStep), Mathf.FloorToInt((y - 1) * hStep)).a;
+                float down = tex.GetPixel(Mathf.FloorToInt(x * wStep), Mathf.FloorToInt((y + 1) * hStep)).a;
+                float left = tex.GetPixel(Mathf.FloorToInt((x - 1) * wStep), Mathf.FloorToInt(y * hStep)).a;
+                float right = tex.GetPixel(Mathf.FloorToInt((x + 1) * wStep), Mathf.FloorToInt(y * hStep)).a;
                 //自身大于0，周围有0
-                if(mid > 0.2f && (up * down * left * right <= 0.1f))
+                if (mid > 0.2f && up * down * left * right < 0.1f)
                 {
+                    LineVert temp = new LineVert();
+                    //      0           
+                    //  0   1   1
+                    //      1   2
+                    if (down > 0.2f && right > 0.2f && up < 0.1f && left < 0.1f)
+                    {
+                        temp.insideDir = new Vector2(1,-1);
+                    }
+                    //      0
+                    //  1   1   1
+                    //      2
+                    if (down > 0.2f && right > 0.2f && up < 0.1f && left > 0.2f)
+                    {
+                        temp.insideDir = new Vector2(0,-1);
+                    }
+                    //      0
+                    //  1   1   0
+                    //  2   1
+                    if (down > 0.2f && right < 0.1f && up < 0.1f && left > 0.2f)
+                    {
+                        temp.insideDir = new Vector2(-1,-1);
+                    }
+                    //      1
+                    //  0   1   2
+                    //      1
+                    if (down > 0.2f && right > 0.2f && up > 0.2f && left < 0.1f)
+                    {
+                        temp.insideDir = new Vector2(1,0);
+                    }
+                    //      1   2
+                    //  0   1   1
+                    //      0
+                    if (down < 0.1f && right > 0.2f && up > 0.2f && left < 0.1f)
+                    {
+                        temp.insideDir = new Vector2(1,1);
+                    }
+                    //      2               2
+                    //  1   1   1       0   1   0
+                    //      0               0
+                    if (down < 0.1f && right > 0.2f && up > 0.2f && left > 0.2f || 
+                        down < 0.1f && right < 0.1f && up > 0.2f && left < 0.1f )
+                    {
+                        temp.insideDir = new Vector2(0,1);
+                    }
+                    //  2   1
+                    //  1   1   0
+                    //      0
+                    if (down < 0.1f && right < 0.1f && up > 0.2f && left > 0.2f)
+                    {
+                        temp.insideDir = new Vector2(-1,1);
+                    }
+                    //      1
+                    //  2   1   0
+                    //      1
+                    if (down > 0.2f && right < 0.1f && up > 0.2f && left > 0.2f)
+                    {
+                        temp.insideDir = new Vector2(-1,0);
+                    }
                     //设置顶点位置
                     Vector3 _tempver = new Vector3();
                     _tempver.x = scale * (x * width / gridW);
                     _tempver.z = scale * (y * width / gridH);
-                    _vertices[verCount++] = _tempver;
+                    temp.vertices = _tempver;
+                    lineVerts.Add(temp);
                 }
             }
         }
-        this.SetTrianglesData();
-        this.SetUVData();
-        this.DrawMesh();
-        this.DrawTexture();
+
+        //GameObject map = GameObject.Find("Map");
+        
+        AddSingleLine(lineVerts.ToArray(),transform);
+
     }
     
-    /// <summary>
-    /// 按每个小方格设置三角形数据
-    /// </summary>
-    public void SetTrianglesData()
+    private void AddSingleLine(LineVert[] verts, Transform parent)
     {
-        int triangleNum = verCount / 3;
-        int triangleVertNum = triangleNum * 6;
-        _triangles = new int[triangleVertNum];
-
-        int index = 0;
-
-        for (int x = 0; x < gridW; x++)
-        {
-            for (int y = 0; y < gridH; y++)
-            {
-                int nowIndex = x + y * wVertCount;
-                //Debug.Log("x:" + x + "|y:" + y + "|index:" + nowIndex);
-                //三角形1
-                _triangles[index] = nowIndex;
-                _triangles[index + 1] = nowIndex +  wVertCount;
-                _triangles[index + 2] = _triangles[index + 1] + 1;
-
-                //三角形2
-                _triangles[index + 3] = nowIndex;
-                _triangles[index + 4] = _triangles[index + 2];
-                _triangles[index + 5] = nowIndex + 1;
-
-                //每个方格六个顶点
-                index += 6;
-
-            }
-        }
-
+        LineRenderer lineRenderer = new GameObject("MeshVertexLine_", new System.Type[] { typeof(LineRenderer) }).GetComponent<LineRenderer>();
+        lineRenderer.transform.parent = parent;
+        lineRenderer.transform.localPosition = Vector3.zero;
+        lineRenderer.transform.localRotation = Quaternion.identity;
+        lineRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        lineRenderer.receiveShadows = false;
+        lineRenderer.allowOcclusionWhenDynamic = false;
+        lineRenderer.motionVectorGenerationMode = MotionVectorGenerationMode.ForceNoMotion;
+        lineRenderer.useWorldSpace = false;
+        lineRenderer.loop = true;
+        lineRenderer.widthMultiplier = 0.5f;
+        lineRenderer.sortingLayerName = "GamePlay";
+        lineRenderer.sortingOrder = 501;
+        lineRenderer.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.Off;
+        lineRenderer.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
+        lineRenderer.alignment = LineAlignment.TransformZ;
+        lineRenderer.textureMode = LineTextureMode.Tile;
+        lineRenderer.material = shoreMaterial;
+ 
+        lineRenderer.positionCount = verts.Length;
+        
+        lineRenderer.SetPosition(0,verts[0].vertices);
+         for (int i = 1; i < verts.Length ; i ++)
+         {
+             for (int j = i; j < verts.Length; j++)
+             {
+                 Debug.Log((i-1)+":"+ verts[i-1].insideDir + verts[j].insideDir + Vector2.Dot(verts[i-1].insideDir, verts[j].insideDir));
+                 if (Vector2.Dot(verts[i-1].insideDir, verts[j].insideDir) >= 0 && !verts[i].isAdded)
+                 {
+                     lineRenderer.SetPosition(i,verts[j].vertices);
+                     break;
+                 }
+             }
+         }
+    
+        
     }
-
-    /// <summary>
-    /// 设置顶点 UV 数据
-    /// </summary>
-    public void SetUVData()
-    {
-        _uvs = new Vector2[hVertCount * wVertCount];
-        float w = 1.0f / gridW;
-        float h = 1.0f / gridH;
-
-        for (int x = 0; x < gridW; x++)
-        {
-            for (int y = 0; y < gridH; y++)
-            {
-                int nowIndex = x + y * wVertCount;
-                _uvs[nowIndex] = new Vector2(x * w, y * h);
-            }
-        }
-    }
-
-    /// <summary>
-    /// 设置 Mesh
-    /// </summary>
-    public void DrawMesh()
-    {
-        if (gameObject.GetComponent<MeshFilter>() == null)
-        {
-            _mesh = new Mesh();
-            _mesh.name = "generation";
-            gameObject.AddComponent<MeshFilter>().sharedMesh = _mesh;
-        }
-        else
-        {
-            _mesh = gameObject.GetComponent<MeshFilter>().sharedMesh;
-        }
-        _mesh.Clear();
-        _mesh.vertices = _vertices;
-        _mesh.uv = _uvs;
-        _mesh.colors = _color;
-        _mesh.triangles = _triangles;
-        _mesh.RecalculateNormals();
-        _mesh.RecalculateBounds();
-        _mesh.RecalculateTangents();
-    }
-
-    /// <summary>
-    /// 设置 贴图
-    /// </summary>
-    public void DrawTexture()
-    {
-        if (gameObject.GetComponent<MeshRenderer>() == null)
-        {
-            gameObject.AddComponent<MeshRenderer>();
-        }
-        //Material diffuseMap = new Material(Shader.Find("Particles/Standard Unlit"));
-        Material diffuseMap = new Material(Shader.Find("Universal Renderer Pipeline/Lit"));
-
-        gameObject.GetComponent<Renderer>().material = diffuseMap;
-    }
+    
 
 
 #if UNITY_EDITOR
@@ -194,7 +199,7 @@ public class MapGenerator : MonoBehaviour
                 GUILayout.BeginHorizontal();
                 if (GUILayout.Button("Generator_Mesh"))
                 {
-                    targetNode.GenerateTexture2D();
+                    targetNode.GenerateVertices();
                     targetNode.GeneratorTerrain();
                 }
                 GUILayout.EndHorizontal();
@@ -203,3 +208,4 @@ public class MapGenerator : MonoBehaviour
     }
 #endif
 }
+

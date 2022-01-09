@@ -86,20 +86,21 @@ Material:
     - Vector1_0d75cfa856fe4c24ae3dff62d9beff83: 1.22
     - Vector1_0fc13617478c48e9b3e46e1e60bac6fa: 1
     - Vector1_3e85e210e28a4a4b889e727c4d88e65f: 0.5
+    - Vector1_40cc75f53f1b41039da92350c1ee6fd6: 17.2
     - Vector1_72b3a189b2b440f099003b450f7b5cf7: 0.68
     - Vector1_7dfe4779078e4c32ad0e2348348fd5d7: 0.5
     - Vector1_acd77c2aaa944a3485b3aea130af3b0f: 0.29
     - Vector1_b21265f981ca42b3bca47df567d49597: 1
     - Vector1_e22c3b88256b451f8bcdc7adc2a6300d: 0
-    - _Depth: 3
+    - _Depth: 0.1
     - _Displacement: 0.5
     - _NormalStrength: 0.005
-    - _Water_Color_Ratio: 0.1
+    - _Water_Color_Ratio: 0.01
     m_Colors:
     - Color_2b7a07b62c9344f692021e43ee355fdb: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
-    - Color_477253e384bc4aea8ec6224e19443916: {r: 1, g: 1, b: 1, a: 1}
+    - Color_477253e384bc4aea8ec6224e19443916: {r: 1, g: 1, b: 1, a: 0}
     - Color_81522bac5b894010a3efd2225c7df712: {r: 0.9198113, g: 1, b: 0.9971698, a: 1}
     - Color_d36f0fa15d124d6aa2c8d6aa1c623a4b: {r: 1, g: 1, b: 1, a: 0.49803922}
-    - _Deep_Water_Color: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0}
+    - _Deep_Water_Color: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0}
     - _Shallow_Water_Color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private GameObject sceneObjects;
     private Rigidbody sceneObjectsRB;
 
-    [Header("»î¶¯ÇøÓò")]
+    [Header("ï¿½î¶¯ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField]
     private BoxCollider activeAreaCollider;
 
@@ -65,12 +65,12 @@ public class PlayerController : MonoBehaviour
         if (IsInActiveArea())
         {
             rb.velocity = cachedMoveDirection * currentMoveSpeed;
-            sceneObjectsRB.velocity = Vector3.zero;
+            sceneObjectsRB.velocity = Vector3.Lerp(sceneObjectsRB.velocity,Vector3.zero, 0.05f);
         }
         else
         {
             rb.velocity = Vector3.zero;
-            sceneObjectsRB.velocity = -cachedMoveDirection * currentMoveSpeed;
+            sceneObjectsRB.velocity = Vector3.Lerp(sceneObjectsRB.velocity,-cachedMoveDirection * currentMoveSpeed,0.1f);
         }
         //sceneObjectsRB.velocity = -cachedMoveDirection * currentMoveSpeed;
 
