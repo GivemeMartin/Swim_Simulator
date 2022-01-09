@@ -94,7 +94,7 @@ Material:
     - Vector1_e22c3b88256b451f8bcdc7adc2a6300d: 0
     - _Depth: 0.1
     - _Displacement: 0.5
-    - _NormalStrength: 0.005
+    - _NormalStrength: 0
     - _Water_Color_Ratio: 0.01
     m_Colors:
     - Color_2b7a07b62c9344f692021e43ee355fdb: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
