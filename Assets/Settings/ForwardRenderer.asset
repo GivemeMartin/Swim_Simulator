@@ -1,5 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6696770095524513564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5152233557d572445869f956e038f123, type: 3}
+  m_Name: NewPixelRenderFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    renderPassEvent: 550
+    shader: {fileID: 4800000, guid: ad9146ac21bbf9543a3326941d4a9481, type: 3}
 --- !u!114 &-3124302568743181159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,7 +63,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RendererFeatures:
   - {fileID: -3124302568743181159}
-  m_RendererFeatureMap: 99e438f35d3fa4d4
+  - {fileID: -6696770095524513564}
+  m_RendererFeatureMap: 99e438f35d3fa4d4e478cd41144b10a3
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
   shaders:
