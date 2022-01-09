@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [System.Serializable]
+    public class Boundray
+    {
+        public float xMax, xMin, zMax, zMin;
+    }
+
     private float horizontalInput;
     private float verticalInput;
     private Vector3 cachedMoveDirection;
@@ -21,9 +27,12 @@ public class PlayerController : MonoBehaviour
     private GameObject sceneObjects;
     private Rigidbody sceneObjectsRB;
 
-    [Header("�����")]
+    [Header("Movable Area")]
     [SerializeField]
-    private BoxCollider activeAreaCollider;
+    private Boundray boundary;
+
+    [SerializeField]
+    private Transform waterPlane;
 
     [SerializeField] 
     private ParticleSystem bubbles;
@@ -62,17 +71,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (IsInActiveArea())
-        {
-            rb.velocity = cachedMoveDirection * currentMoveSpeed;
-            sceneObjectsRB.velocity = Vector3.Lerp(sceneObjectsRB.velocity,Vector3.zero, 0.05f);
-        }
-        else
-        {
-            rb.velocity = Vector3.zero;
-            sceneObjectsRB.velocity = Vector3.Lerp(sceneObjectsRB.velocity,-cachedMoveDirection * currentMoveSpeed,0.1f);
-        }
-        //sceneObjectsRB.velocity = -cachedMoveDirection * currentMoveSpeed;
+        rb.velocity = cachedMoveDirection * currentMoveSpeed;
+        waterPlane.position = new Vector3(rb.position.x, 0, rb.position.z);
 
         if (cachedMoveDirection != Vector3.zero)
         {
@@ -81,13 +81,6 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, q, 0.2f);
         }
 
-    }
-
-    private bool IsInActiveArea()
-    {
-        Bounds bounds = activeAreaCollider.bounds;
-        return bounds.Contains(transform.position)
-            || Vector3.Dot(cachedMoveDirection, transform.position) <= 0;
     }
 
 }
