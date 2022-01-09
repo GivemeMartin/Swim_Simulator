@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [System.Serializable]
-    public class Boundray
-    {
-        public float xMax, xMin, zMax, zMin;
-    }
-
     private float horizontalInput;
     private float verticalInput;
     private Vector3 cachedMoveDirection;
@@ -24,14 +18,6 @@ public class PlayerController : MonoBehaviour
     private float turnSpeed = 360.0f;
 
     [SerializeField]
-    private GameObject sceneObjects;
-    private Rigidbody sceneObjectsRB;
-
-    [Header("Movable Area")]
-    [SerializeField]
-    private Boundray boundary;
-
-    [SerializeField]
     private Transform waterPlane;
 
     [SerializeField] 
@@ -39,15 +25,12 @@ public class PlayerController : MonoBehaviour
 
     private float currentMoveSpeed;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        sceneObjectsRB = sceneObjects.GetComponent<Rigidbody>();
         currentMoveSpeed = moveSpeed;
     }
 
-    // Update is called once per frame
     void Update()
     {
         horizontalInput = Input.GetAxis("Horizontal");
