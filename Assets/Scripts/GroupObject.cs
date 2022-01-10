@@ -100,16 +100,19 @@ public class GroupObject : MonoBehaviour
         }
         velocity.y = 0;
         newPosition = this.transform.position + velocity * Time.deltaTime;
-        Vector3 deltaDir = (GameObject.FindWithTag("Player").transform.position - transform.position).normalized;
+        float deltaDist = (GameObject.FindWithTag("Player").transform.position - transform.position).magnitude;
+        if (deltaDist < 2)
+            bubbles.Stop();
         //Debug.Log(Mathf.Abs(Vector3.Dot(transform.forward, deltaDir)));
-        if (Mathf.Abs(Vector3.Dot(transform.forward, deltaDir)) < 0.8f)
-            //transform.forward = deltaDir;
-            transform.forward = Vector3.Lerp(transform.forward, deltaDir, 0.8f);
-        else
-        {
-            transform.forward = Vector3.Lerp(transform.forward, velocity.normalized, 0.1f);
-        }
+        // if (Mathf.Abs(Vector3.Dot(transform.forward, deltaDir)) < 0.8f)
+        //     //transform.forward = deltaDir;
+        //     transform.forward = Vector3.Lerp(transform.forward, deltaDir, 0.8f);
+        // else
+        // {
+        //     transform.forward = Vector3.Lerp(transform.forward, velocity.normalized, 0.1f);
+        // }
         //transform.position = newPosition;
+        transform.forward = Vector3.Lerp(transform.forward, velocity.normalized, 0.1f);
         GetComponent<Rigidbody>().velocity = velocity;
     }
 
