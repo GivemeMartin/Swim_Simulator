@@ -53,7 +53,7 @@ Shader "Unlit/RippleShader"
 
                 float d;
                 d = (p10 + p01 + p21 + p12) / 2 - p11;
-                d *= 0.98;
+                d *= 0.99;
                 d = d * step(0.001f, d);
                 return d;
             }

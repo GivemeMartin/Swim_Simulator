@@ -15,9 +15,10 @@ public class GroupObject : MonoBehaviour
     public List<GroupObject> neighbours;
     public List<GroupObject> collisionRisks;
     public GroupObject closest;
+    private ParticleSystem bubbles;
     private void Awake()
     {
-        
+        bubbles = GetComponentInChildren<ParticleSystem>();
 
         if (groupList == null)
             groupList = new List<GroupObject>();
@@ -89,13 +90,34 @@ public class GroupObject : MonoBehaviour
         velocity = (1 - groupmanager.velocityLerpAmt) * velocity + groupmanager.velocityLerpAmt * newVelocity;
         //确保 速度值 在上下限范围内(超过范围就设定为范围值)
         if (velocity.magnitude > groupmanager.maxVelocity)
+        {
             velocity = velocity.normalized * groupmanager.maxVelocity;
-        if (velocity.magnitude <groupmanager.minVelocity)
+            StartCoroutine(EmitBubbles(1));
+        }
+        if (velocity.magnitude < groupmanager.minVelocity)
+        {
             velocity = velocity.normalized * groupmanager.minVelocity;
+        }
         velocity.y = 0;
         newPosition = this.transform.position + velocity * Time.deltaTime;
-        transform.forward = newPosition.normalized;
-        transform.position = newPosition;
+        Vector3 deltaDir = (GameObject.FindWithTag("Player").transform.position - transform.position).normalized;
+        //Debug.Log(Mathf.Abs(Vector3.Dot(transform.forward, deltaDir)));
+        if (Mathf.Abs(Vector3.Dot(transform.forward, deltaDir)) < 0.8f)
+            //transform.forward = deltaDir;
+            transform.forward = Vector3.Lerp(transform.forward, deltaDir, 0.8f);
+        else
+        {
+            transform.forward = Vector3.Lerp(transform.forward, velocity.normalized, 0.1f);
+        }
+        //transform.position = newPosition;
+        GetComponent<Rigidbody>().velocity = velocity;
+    }
+
+    IEnumerator EmitBubbles(float emitTimes)
+    {
+        bubbles.Play();
+        yield return new WaitForSeconds(emitTimes);
+        bubbles.Stop();
     }
 
     void InitObject()
