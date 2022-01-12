@@ -25,7 +25,7 @@ Shader "Custom/OilPaintEffect" {
 		int _Height;
 
 		float4 frag(v2f_img i) :SV_Target{
-			_ResolutionValue = _ResolutionValue + sin(_Time.z);
+			//_ResolutionValue = _ResolutionValue + sin(_Time.z);
 			float2 src_size = float2(_ResolutionValue / _Width,_ResolutionValue / _Height);
 			float2 uv = i.uv;
 			float n = (_Radius + 1)*(_Radius + 1);

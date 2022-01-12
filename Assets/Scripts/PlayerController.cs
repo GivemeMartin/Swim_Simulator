@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         rb.velocity = cachedMoveDirection * currentMoveSpeed;
-        waterPlane.position = new Vector3(rb.position.x, 0, rb.position.z);
+        //waterPlane.position = new Vector3(rb.position.x, 0, rb.position.z);
 
         if (cachedMoveDirection != Vector3.zero)
         {

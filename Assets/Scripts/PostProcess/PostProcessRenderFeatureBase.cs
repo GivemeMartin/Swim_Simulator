@@ -1,33 +1,34 @@
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class PixelRenderFeature : ScriptableRendererFeature
+public abstract class PostProcessRenderFeatureBase : ScriptableRendererFeature
 {
     [System.Serializable]
     public class Settings
     {
-        public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingOpaques;
+        public RenderPassEvent renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
         public Shader shader;
     }
 
-    [SerializeField] Settings settings;
+    [SerializeField]
+    protected Settings settings;
 
-    class PixelRenderPass : ScriptableRenderPass
+    protected abstract class PostProcessRenderPassBase : ScriptableRenderPass
     {
-        Settings settings;
+        protected string k_RenderTag = "RenderPostProcess";
 
-        string k_RenderTag = "Render pixel Effects";
-
-        PixelPostProcessContrast contrast;
-        Material mat;
+        protected Type postProcessType;
+        protected PostProcessBase postProcessSettings;
+        protected Material mat;
         RenderTargetIdentifier currentTarget;
         RenderTargetHandle m_TemporaryColorTexture;
 
-        public PixelRenderPass(Settings s)
+        public PostProcessRenderPassBase(Settings s, PostProcessBase postProcessSettings)
         {
-            settings = s;
             renderPassEvent = s.renderPassEvent;
+            this.postProcessSettings = postProcessSettings;
             if (s.shader == null)
             {
                 Debug.LogError("Shader not found.");
@@ -55,14 +56,11 @@ public class PixelRenderFeature : ScriptableRendererFeature
             {
                 return;
             }
-
-            var stack = VolumeManager.instance.stack;
-            contrast = stack.GetComponent<PixelPostProcessContrast>();
-            if (contrast == null)
+            if (postProcessSettings == null)
             {
                 return;
             }
-            if (!contrast.IsActive())
+            if (!postProcessSettings.IsActive())
             {
                 return;
             }
@@ -76,13 +74,7 @@ public class PixelRenderFeature : ScriptableRendererFeature
 
         private void Render(CommandBuffer cmd, ref RenderingData renderingData)
         {
-            ref var cameraData = ref renderingData.cameraData;
-
-            float k = cameraData.camera.aspect;
-            Vector2 count = new Vector2(contrast.blockCount.value, contrast.blockCount.value / k);
-            Vector2 size = new Vector2(1.0f / count.x, 1.0f / count.y);
-            mat.SetVector("BlockCount", count);
-            mat.SetVector("BlockSize", size);
+            SetupMaterial(ref renderingData);
 
             RenderTextureDescriptor opaqueDesc = renderingData.cameraData.cameraTargetDescriptor;
             opaqueDesc.depthBufferBits = 0;
@@ -96,25 +88,24 @@ public class PixelRenderFeature : ScriptableRendererFeature
 
         }
 
+        protected abstract void SetupMaterial(ref RenderingData renderingData);
+
         public override void OnCameraCleanup(CommandBuffer cmd)
         {
+            cmd.ReleaseTemporaryRT(m_TemporaryColorTexture.id);
         }
     }
 
-    PixelRenderPass m_ScriptablePass;
-
-    public override void Create()
-    {
-        m_ScriptablePass = new PixelRenderPass(settings);
-    }
+    protected PostProcessRenderPassBase scriptablePass;
 
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
     {
         var src = renderer.cameraColorTarget;
 
-        m_ScriptablePass.Setup(src);
-        renderer.EnqueuePass(m_ScriptablePass);
+        scriptablePass.Setup(src);
+        renderer.EnqueuePass(scriptablePass);
     }
+
 }
 
 

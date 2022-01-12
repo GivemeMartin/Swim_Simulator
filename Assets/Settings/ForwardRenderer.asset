@@ -16,6 +16,22 @@ MonoBehaviour:
   settings:
     renderPassEvent: 550
     shader: {fileID: 4800000, guid: ad9146ac21bbf9543a3326941d4a9481, type: 3}
+--- !u!114 &-5686613919094885780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3801a9f11034b724187d2d81a107ff02, type: 3}
+  m_Name: NewPaintingRenderFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    renderPassEvent: 550
+    shader: {fileID: 4800000, guid: 6774c88e2aa6d634c84b59db4f812950, type: 3}
 --- !u!114 &-3124302568743181159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34,6 +50,22 @@ MonoBehaviour:
     LayerMask:
       serializedVersion: 2
       m_Bits: 128
+--- !u!114 &-1000738130253769411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 479ce7794332a384ea35ab31de4783f5, type: 3}
+  m_Name: NewBlurRenderFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    renderPassEvent: 550
+    shader: {fileID: 4800000, guid: 66fb2376dd67bd046b234dc81cac9212, type: 3}
 --- !u!114 &-667813930170136546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,7 +96,9 @@ MonoBehaviour:
   m_RendererFeatures:
   - {fileID: -3124302568743181159}
   - {fileID: -6696770095524513564}
-  m_RendererFeatureMap: 99e438f35d3fa4d4e478cd41144b10a3
+  - {fileID: -5686613919094885780}
+  - {fileID: -1000738130253769411}
+  m_RendererFeatureMap: 99e438f35d3fa4d4e478cd41144b10a36cb28e01c51615b13d150901f9a91cf2
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
   shaders:

@@ -3,7 +3,6 @@
 	Properties
 	{
 		_MainTex ("Texture", 2D) = "white" {}
-		_MaxPixelCount ("MaxPixelCount", float) = 10
 	}
 	SubShader
 	{
