@@ -7,9 +7,6 @@
             "m_Id": "094b75c783864c8583dbbddcf9a7c431"
         },
         {
-            "m_Id": "40cc75f53f1b41039da92350c1ee6fd6"
-        },
-        {
             "m_Id": "0fc13617478c48e9b3e46e1e60bac6fa"
         },
         {
@@ -4120,29 +4117,6 @@
     "m_Value": {
         "x": 0.0,
         "y": 0.0
-    }
-}
-
-{
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
-    "m_ObjectId": "40cc75f53f1b41039da92350c1ee6fd6",
-    "m_Guid": {
-        "m_GuidSerialized": "bb6564eb-fe2b-4671-aadf-226f43fb7d6b"
-    },
-    "m_Name": "DepthStrength",
-    "m_DefaultReferenceName": "Vector1_40cc75f53f1b41039da92350c1ee6fd6",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": 0.0,
-    "m_FloatType": 0,
-    "m_RangeValues": {
-        "x": 0.0,
-        "y": 1.0
     }
 }
 

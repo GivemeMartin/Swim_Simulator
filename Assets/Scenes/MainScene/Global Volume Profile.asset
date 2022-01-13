@@ -22,7 +22,51 @@ MonoBehaviour:
     m_Value: 256
     min: 0
     max: 1000
+--- !u!114 &-4350425872158568613
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 750eee3ba4e57604da8b697b252a625e, type: 3}
+  m_Name: BlurPostProcess
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  IsRender:
+    m_OverrideState: 1
+    m_Value: 1
+  range:
+    m_OverrideState: 1
+    m_Value: 10
+    min: 0
+    max: 10
 --- !u!114 &-3993764376607836753
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f8bc1df0cb41024182fb068db53a5f9, type: 3}
+  m_Name: PixelPostProcess
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  IsRender:
+    m_OverrideState: 1
+    m_Value: 0
+  blockCount:
+    m_OverrideState: 1
+    m_Value: 256
+    min: 0
+    max: 1000
+--- !u!114 &-2952831817132989297
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -79,9 +123,9 @@ MonoBehaviour:
   m_Name: Global Volume Profile
   m_EditorClassIdentifier: 
   components:
-  - {fileID: 3554020354711640485}
-  - {fileID: -2208318087859684720}
-  - {fileID: -3993764376607836753}
+  - {fileID: 6940062623058959398}
+  - {fileID: -4350425872158568613}
+  - {fileID: -2952831817132989297}
 --- !u!114 &3554020354711640485
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -107,5 +151,32 @@ MonoBehaviour:
   resolutionValue:
     m_OverrideState: 1
     m_Value: 2
+    min: 0
+    max: 5
+--- !u!114 &6940062623058959398
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46644127c849e4e4ab886404833c1a93, type: 3}
+  m_Name: PaintingPostProcess
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  IsRender:
+    m_OverrideState: 1
+    m_Value: 1
+  radius:
+    m_OverrideState: 1
+    m_Value: 2
+    min: 0
+    max: 5
+  resolutionValue:
+    m_OverrideState: 1
+    m_Value: 2.71
     min: 0
     max: 5
