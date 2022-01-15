@@ -1,5 +1,6 @@
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
+using Cinemachine;
 using UnityEngine;
 
 namespace Custom_Tasks
