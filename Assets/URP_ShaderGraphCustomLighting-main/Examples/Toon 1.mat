@@ -42,7 +42,7 @@ Material:
     m_Floats:
     - ADDITIONAL_LIGHTS: 1
     - _SPECULAR: 1
-    - _Smoothness: 2
+    - _Smoothness: -0.15
     m_Colors:
     - _DiffuseColor: {r: 0.3679245, g: 0.31536385, b: 0, a: 0}
     - _SpecularColour: {r: 1, g: 1, b: 1, a: 0}

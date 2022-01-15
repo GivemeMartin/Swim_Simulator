@@ -80,10 +80,10 @@ public abstract class PostProcessRenderFeatureBase : ScriptableRendererFeature
             opaqueDesc.depthBufferBits = 0;
             cmd.GetTemporaryRT(m_TemporaryColorTexture.id, opaqueDesc);
 
-            //½«µ±Ç°Ö¡µÄÑÕÉ«RTÓÃ×Ô¼ºµÄ×ÅÉ«Æ÷äÖ´¦ÀíÈ»ºóÊä³öµ½´´½¨µÄÌùÍ¼ÉÏ
+            //å°†å½“å‰å¸§çš„é¢œè‰²RTç”¨è‡ªå·±çš„ç€è‰²å™¨æ¸²å¤„ç†ç„¶åè¾“å‡ºåˆ°åˆ›å»ºçš„è´´å›¾ä¸Š
             Blit(cmd, currentTarget, m_TemporaryColorTexture.Identifier(), mat);
 
-            //½«´¦ÀíºóµÄRTÖØĞÂäÖÈ¾µ½µ±Ç°Ö¡µÄÑÕÉ«RTÉÏ
+            //å°†å¤„ç†åçš„RTé‡æ–°æ¸²æŸ“åˆ°å½“å‰å¸§çš„é¢œè‰²RTä¸Š
             Blit(cmd, m_TemporaryColorTexture.Identifier(), currentTarget);
 
         }
