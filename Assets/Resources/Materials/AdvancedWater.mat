@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: AdvancedWater
-  m_Shader: {fileID: -6465566751694194690, guid: 5929110f08903e848ae92c7c5960cb67, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 90143d8fdb4b47946a9d07a770fd2c29, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -80,7 +80,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_029759aa9ec24cfbb1d37be6c9dbf7df: 0.775
+    - Vector1_029759aa9ec24cfbb1d37be6c9dbf7df: 0.5
     - Vector1_094b75c783864c8583dbbddcf9a7c431: 0
     - Vector1_0a2a454e99854c75a1014fe8ef414121: 1
     - Vector1_0d75cfa856fe4c24ae3dff62d9beff83: 1.22
@@ -92,15 +92,20 @@ Material:
     - Vector1_acd77c2aaa944a3485b3aea130af3b0f: 0.29
     - Vector1_b21265f981ca42b3bca47df567d49597: 1
     - Vector1_e22c3b88256b451f8bcdc7adc2a6300d: 0
-    - _Depth: 2
+    - _Depth: 5
     - _Displacement: 0.5
+    - _Foam_Depth: 0.4
+    - _Foam_Scale: 4
+    - _Foam_Speed: 0.5
     - _NormalStrength: 0
-    - _Water_Color_Ratio: 0.069
+    - _Water_Color_Ratio: 0
     m_Colors:
+    - Color_22cc2ee6e2d34a5ea85071632720c19f: {r: 0.08235294, g: 0.16078432, b: 0.20392157, a: 0}
     - Color_2b7a07b62c9344f692021e43ee355fdb: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
     - Color_477253e384bc4aea8ec6224e19443916: {r: 1, g: 1, b: 1, a: 0}
-    - Color_81522bac5b894010a3efd2225c7df712: {r: 0.9198113, g: 1, b: 0.9971698, a: 1}
+    - Color_81522bac5b894010a3efd2225c7df712: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
     - Color_d36f0fa15d124d6aa2c8d6aa1c623a4b: {r: 1, g: 1, b: 1, a: 0.49803922}
-    - _Deep_Water_Color: {r: 0.34635097, g: 0.6389467, b: 0.8867924, a: 0}
-    - _Shallow_Water_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Deep_Water_Color: {r: 0.08235294, g: 0.16078432, b: 0.20392157, a: 0}
+    - _Foam_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Shallow_Water_Color: {r: 0.7490566, g: 0.9209022, b: 1, a: 0}
   m_BuildTextureStacks: []
