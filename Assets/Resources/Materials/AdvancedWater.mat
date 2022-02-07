@@ -92,7 +92,7 @@ Material:
     - Vector1_acd77c2aaa944a3485b3aea130af3b0f: 0.29
     - Vector1_b21265f981ca42b3bca47df567d49597: 1
     - Vector1_e22c3b88256b451f8bcdc7adc2a6300d: 0
-    - _Depth: 5
+    - _Depth: 4
     - _Displacement: 0.5
     - _Foam_Depth: 0.4
     - _Foam_Scale: 4
@@ -105,7 +105,7 @@ Material:
     - Color_477253e384bc4aea8ec6224e19443916: {r: 1, g: 1, b: 1, a: 0}
     - Color_81522bac5b894010a3efd2225c7df712: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
     - Color_d36f0fa15d124d6aa2c8d6aa1c623a4b: {r: 1, g: 1, b: 1, a: 0.49803922}
-    - _Deep_Water_Color: {r: 0.08235294, g: 0.16078432, b: 0.20392157, a: 0}
+    - _Deep_Water_Color: {r: 0.18178178, g: 0.32621956, b: 0.4056604, a: 0}
     - _Foam_Color: {r: 1, g: 1, b: 1, a: 0}
     - _Shallow_Water_Color: {r: 0.7490566, g: 0.9209022, b: 1, a: 0}
   m_BuildTextureStacks: []

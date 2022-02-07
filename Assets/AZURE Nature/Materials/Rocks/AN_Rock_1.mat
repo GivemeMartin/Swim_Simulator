@@ -114,15 +114,15 @@ Material:
     - _BumpScale: 1
     - _COVERAGE: 1
     - _Coverage: 0
-    - _CoverageContrast: 0.7
-    - _CoverageFade: 0.35
+    - _CoverageContrast: 0.662
+    - _CoverageFade: 0.26
     - _CoverageFade1: 0.4
     - _CoverageLevel: -0.14
     - _CoverageLevel1: 0.3
     - _CoverageOverlayType: 0
     - _CoverageSmoothness: 0.2
     - _CoverageThickness: 1
-    - _CoverageThicknessLevel: 0.5
+    - _CoverageThicknessLevel: 0.703
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -144,7 +144,7 @@ Material:
     - _SnowFade: 0.3
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _SurfaceSmoothness: 0
+    - _SurfaceSmoothness: 0.619
     - _TessEdgeLength: 16
     - _TessMax: 25
     - _TessMaxDisp: 25
