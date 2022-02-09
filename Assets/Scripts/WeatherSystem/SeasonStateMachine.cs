@@ -94,7 +94,7 @@ public class SeasonStateMachine : StateMachineBase
 //         public override void OnInspectorGUI()
 //         {
 //             base.OnInspectorGUI();
-//             if (!Application.isPlaying)
+//             if (!Application.isPlaying)·
 //             {
 //                 var targetNode = target as SeasonStateMachine;
 //                 if (targetNode == null)

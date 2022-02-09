@@ -8,12 +8,12 @@ using UnityEngine;
 [Serializable]
 public class weatherChance
 {
-    public EWeatherState weatherState;
+    public EWeatherState weather;
     [Range(0, 1)] public float chance;
 
     public weatherChance(EWeatherState state, float probability)
     {
-        this.weatherState = state;
+        this.weather = state;
         this.chance = probability;
     }
 }

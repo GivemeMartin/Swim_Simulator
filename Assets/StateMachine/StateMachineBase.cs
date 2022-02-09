@@ -8,13 +8,15 @@ public enum EWeatherState
     Sunny,
     Windy,
     Rainy,
-    Snowy
+    Snowy,
+    Null
 }
 
 public enum ESeasonState
 {
     Warm,
-    Cold
+    Cold,
+    Null
 }
 
 public class WeatherStateAttribute : Attribute
