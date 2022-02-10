@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//----------------------------enums----------------------------
 public enum EWeatherState
 {
     Sunny,
@@ -19,6 +20,17 @@ public enum ESeasonState
     Null
 }
 
+public enum EGameTime
+{
+    Dawn,
+    Morning,
+    Noon,
+    Afternoon,
+    Night,
+    MidNight
+}
+
+//-------------------------Attributes----------------------------------
 public class WeatherStateAttribute : Attribute
 {
     public EWeatherState weatherState;
@@ -39,6 +51,17 @@ public class SeasonStateAttribute : Attribute
     }
 }
 
+public class GameTimeStateAttribute : Attribute
+{
+    public EGameTime gameTimeState;
+
+    public GameTimeStateAttribute(EGameTime state)
+    {
+        this.gameTimeState = state;
+    }
+}
+
+//---------------------------StateMachineBase-------------------------------
 public abstract class StateMachineBase : MonoBehaviour
 {
     protected StateBase currentState;

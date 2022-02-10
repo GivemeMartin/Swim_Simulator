@@ -57,7 +57,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: e1f3da621d899e341b0c9d832b1d57d0, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 0.3, y: 0.3}
         m_Offset: {x: 0, y: 0.2}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -100,7 +100,7 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _GrassCut: 0
-    - _GrassSaturation: 3.47
+    - _GrassSaturation: 7.41
     - _GrassShading: 0
     - _GrassThinness: 0.4
     - _GrassThinnessIntersection: 0.43
@@ -154,6 +154,6 @@ Material:
     - _PJShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ProjectedShadowColor: {r: 0.32061252, g: 0.4716981, b: 0.14017443, a: 1}
     - _RimColor: {r: 0.14566667, g: 0.184, b: 0.09008333, a: 1}
-    - _SelfShadowColor: {r: 0.41568628, g: 0.43137255, b: 0.36078432, a: 1}
+    - _SelfShadowColor: {r: 0.614325, g: 0.6886792, b: 0.35408506, a: 1}
     - _ShadowColor: {r: 0.09999997, g: 0.7, b: 0.09999997, a: 1}
   m_BuildTextureStacks: []

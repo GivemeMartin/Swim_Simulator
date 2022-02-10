@@ -18,7 +18,10 @@ public class SeasonStateMachine : StateMachineBase
     {
         ConstructStates();
         SetSeasonState(initState);
-        Instance = this;
+        if(Instance == null)
+        {
+            Instance = this;
+        }
     }
 
     public void SetSeasonState(ESeasonState state)

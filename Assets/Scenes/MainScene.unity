@@ -5257,8 +5257,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1671489729069227644, guid: e8744cc181e4d6e4f83d0c59a01c1d23, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.54625803
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671489729069227644, guid: e8744cc181e4d6e4f83d0c59a01c1d23, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.54625803
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671489729069227644, guid: e8744cc181e4d6e4f83d0c59a01c1d23, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.54625803
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671489729069227644, guid: e8744cc181e4d6e4f83d0c59a01c1d23, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.11
+      value: -10.05
       objectReference: {fileID: 0}
     - target: {fileID: 1671489729069227644, guid: e8744cc181e4d6e4f83d0c59a01c1d23, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5266,7 +5278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1671489729069227644, guid: e8744cc181e4d6e4f83d0c59a01c1d23, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.7
+      value: 3.8
       objectReference: {fileID: 0}
     - target: {fileID: 1671489729069227644, guid: e8744cc181e4d6e4f83d0c59a01c1d23, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5725,6 +5737,7 @@ GameObject:
   - component: {fileID: 652262326}
   - component: {fileID: 652262325}
   - component: {fileID: 652262324}
+  - component: {fileID: 652262327}
   m_Layer: 0
   m_Name: WeatherSystem
   m_TagString: Untagged
@@ -5746,9 +5759,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentState: 0
   weatherChances:
-  - weatherState: 0
+  - weather: 0
     chance: 0
-  - weatherState: 3
+  - weather: 0
     chance: 0
 --- !u!114 &652262325
 MonoBehaviour:
@@ -5777,6 +5790,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &652262327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652262323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e165f6bfcef3a94999fc7238f710656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeK: 1
+  EgameTime: 0
+  GTime: 290
+  GameTime: 0
 --- !u!1001 &677784825
 PrefabInstance:
   m_ObjectHideFlags: 0

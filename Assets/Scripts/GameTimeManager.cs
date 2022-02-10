@@ -1,34 +1,37 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using BehaviorDesigner.Runtime.ObjectDrawers;
 using UnityEngine;
 
-public enum EGameTime
+public class GameTimeManager : StateMachineBase
 {
-    Dawn,
-    Morning,
-    Noon,
-    Afternoon,
-    Night,
-    MidNight
-}
-public class GameTimeManager : MonoBehaviour
-{
-    public static GameTimeManager gameTimeManager;
+    public static GameTimeManager Instance;
+    private Dictionary<EGameTime, StateBase> timeStates;
+    private const EGameTime initState = EGameTime.MidNight;
+    [SerializeField] private EGameTime CurrentState;
     private const float DAYTIME = 300;
-    public EGameTime EgameTime;
+    
+    //timeK为测试用
+    [Tooltip("游戏时间运行速度倍率")]
+    [SerializeField] private int timeK = 1;
+    [Tooltip("游戏实际时间(每日)")]
     [SerializeField] private float GTime;
-
+    [Tooltip("游戏内时间")]
     [Range(0,24)]public int GameTime;
+    
 
     private static int gameTime;
     private bool timing;
     private void Awake()
     {
-        if (gameTimeManager == null)
+        ConstructStates();
+        SetTimeState(initState);
+        if (Instance == null)
         {
-            gameTimeManager = this;
+            Instance = this;
         }
     }
 
@@ -45,7 +48,7 @@ public class GameTimeManager : MonoBehaviour
         {
             if (GTime <= DAYTIME)
             {
-                GTime += Time.deltaTime;
+                GTime += Time.deltaTime * timeK;
             }
             else
             {
@@ -67,27 +70,202 @@ public class GameTimeManager : MonoBehaviour
     {
         if (gameTime >= 4 && gameTime < 6)
         {
-            EgameTime = EGameTime.Dawn;
+            SetTimeState(EGameTime.Dawn);
         }
         else if (gameTime >= 6 && gameTime < 12)
         {
-            EgameTime = EGameTime.Morning;
+            SetTimeState(EGameTime.Morning);
         }
         else if (gameTime >= 12 && gameTime < 14)
         {
-            EgameTime = EGameTime.Noon;
+            SetTimeState(EGameTime.Noon);
         }
         else if (gameTime >= 14 && gameTime < 16)
         {
-            EgameTime = EGameTime.Afternoon;
+            SetTimeState(EGameTime.Afternoon);
         }
         else if (gameTime >= 18 && gameTime < 24)
         {
-            EgameTime = EGameTime.Night;
+            SetTimeState(EGameTime.Night);
         }
         else if (gameTime >= 0 && gameTime < 4)
         {
-            EgameTime = EGameTime.MidNight;
+            SetTimeState(EGameTime.MidNight);
         }
     }
+    
+    public void SetTimeState(EGameTime state)
+    {
+        if (GetTimeState(state) == null)
+        {
+            Debug.LogError("NULL REFERENCE: Missing State (" + state.ToString() + " )");
+        }
+        else
+        {
+            CurrentState = state;
+            currentState?.ExitState();
+            var nextState = GetTimeState(state);
+            nextState.EnterState();
+            currentState = nextState;
+        }
+    }
+
+    public StateBase GetTimeState(EGameTime state)
+    {
+        if (timeStates.ContainsKey(state))
+        {
+            return timeStates[state];
+        }
+        else
+        {
+            Debug.LogError("Required State not exist: " + state);
+            return null;
+        }
+    }
+    
+    private void ConstructStates ()
+    {
+        timeStates = new Dictionary<EGameTime, StateBase>();
+
+        var stateEnums = Enum.GetValues(typeof(EGameTime)) as EGameTime[];
+
+        var occuredTable = new Dictionary<EGameTime, bool>();
+
+        var allTypes = Assembly.GetExecutingAssembly().GetTypes();
+
+        var attributedType =
+            from type in allTypes
+            where
+                !type.IsAbstract &&
+                !type.IsInterface &&
+                type.IsSubclassOf(typeof(StateBase)) &&
+                type.GetCustomAttribute<GameTimeStateAttribute>() != null
+            select type;
+
+        foreach (var type in attributedType)
+        {
+            var attribute = type.GetCustomAttribute<GameTimeStateAttribute>();
+            var state = attribute.gameTimeState;
+            if (!occuredTable.ContainsKey(state))
+            {
+                occuredTable[state] = true;
+                timeStates[state] = type.GetConstructor(new Type[] { typeof(StateMachineBase) }).Invoke(new object[] { this }) as StateBase;
+            }
+            else
+            {
+                Debug.Log("Repeated definition : " + type.Name);
+            }
+
+        }
+        
+    }
 }
+
+[GameTimeState(EGameTime.Afternoon)]
+public class AfternoonState : StateBase
+{
+    public AfternoonState(StateMachineBase sm) : base(sm)
+    {
+    }
+
+    public override void EnterState()
+    {
+        
+    }
+
+    public override void ExitState()
+    {
+        
+    }
+}
+
+[GameTimeState(EGameTime.Dawn)]
+public class DawnState : StateBase
+{
+    public DawnState(StateMachineBase sm) : base(sm)
+    {
+    }
+
+    public override void EnterState()
+    {
+        
+    }
+
+    public override void ExitState()
+    {
+        
+    }
+}
+
+[GameTimeState(EGameTime.Morning)]
+public class MorningState : StateBase
+{
+    public MorningState(StateMachineBase sm) : base(sm)
+    {
+    }
+
+    public override void EnterState()
+    {
+        
+    }
+
+    public override void ExitState()
+    {
+        
+    }
+}
+
+[GameTimeState(EGameTime.Night)]
+public class NightState : StateBase
+{
+    public NightState(StateMachineBase sm) : base(sm)
+    {
+    }
+
+    public override void EnterState()
+    {
+        
+    }
+
+    public override void ExitState()
+    {
+        
+    }
+}
+
+[GameTimeState(EGameTime.Noon)]
+public class NoonState : StateBase
+{
+    public NoonState(StateMachineBase sm) : base(sm)
+    {
+    }
+
+    public override void EnterState()
+    {
+        
+    }
+
+    public override void ExitState()
+    {
+        
+    }
+}
+
+[GameTimeState(EGameTime.MidNight)]
+public class MidNightState : StateBase
+{
+    public MidNightState(StateMachineBase sm) : base(sm)
+    {
+    }
+
+    public override void EnterState()
+    {
+        
+    }
+
+    public override void ExitState()
+    {
+        
+    }
+}
+
