@@ -14,7 +14,7 @@ namespace Custom_Tasks
         private const int TargetRadius = 3;
         public override TaskStatus OnUpdate()
         {
-            Debug.Log("RunTime:FindRandomPoint");
+            // Debug.Log("RunTime:FindRandomPoint");
             var temp = Random.insideUnitSphere * TargetRadius + transform.position;
             var res = new Vector3(temp.x, 0, temp.z);
             targetPos.SetValue(res);

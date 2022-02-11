@@ -7,9 +7,12 @@ using UnityEngine;
 public enum EWeatherState
 {
     Sunny,
-    Windy,
+    Cloudy,
     Rainy,
     Snowy,
+    Storm,
+    Coldy,
+    Aurora,
     Null
 }
 
@@ -69,7 +72,7 @@ public abstract class StateMachineBase : MonoBehaviour
     {
         currentState.OnUpdate();
     }
-    
+
 }
 
 

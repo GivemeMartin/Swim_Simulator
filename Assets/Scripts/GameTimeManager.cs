@@ -9,9 +9,11 @@ using UnityEngine;
 public class GameTimeManager : StateMachineBase
 {
     public static GameTimeManager Instance;
+    public static int GameDate = 1;
+    
     private Dictionary<EGameTime, StateBase> timeStates;
     private const EGameTime initState = EGameTime.MidNight;
-    [SerializeField] private EGameTime CurrentState;
+    public EGameTime CurrentTimeSeg;
     private const float DAYTIME = 300;
     
     //timeK为测试用
@@ -52,7 +54,10 @@ public class GameTimeManager : StateMachineBase
             }
             else
             {
+                WeatherStateMachine.Instance.UpdateWeather();
+                GameDate++;
                 GTime = 0;
+                
             }
         }
 
@@ -94,7 +99,7 @@ public class GameTimeManager : StateMachineBase
         }
     }
     
-    public void SetTimeState(EGameTime state)
+    private void SetTimeState(EGameTime state)
     {
         if (GetTimeState(state) == null)
         {
@@ -102,7 +107,7 @@ public class GameTimeManager : StateMachineBase
         }
         else
         {
-            CurrentState = state;
+            CurrentTimeSeg = state;
             currentState?.ExitState();
             var nextState = GetTimeState(state);
             nextState.EnterState();
@@ -110,7 +115,7 @@ public class GameTimeManager : StateMachineBase
         }
     }
 
-    public StateBase GetTimeState(EGameTime state)
+    private StateBase GetTimeState(EGameTime state)
     {
         if (timeStates.ContainsKey(state))
         {
@@ -123,7 +128,7 @@ public class GameTimeManager : StateMachineBase
         }
     }
     
-    private void ConstructStates ()
+    private void ConstructStates()
     {
         timeStates = new Dictionary<EGameTime, StateBase>();
 

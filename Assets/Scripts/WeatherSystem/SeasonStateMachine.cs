@@ -11,7 +11,7 @@ public class SeasonStateMachine : StateMachineBase
     public static SeasonStateMachine Instance;
     private Dictionary<ESeasonState, StateBase> seasonStates;
     private const ESeasonState initState = ESeasonState.Warm;
-    [SerializeField] private ESeasonState CurrentState;
+    public static ESeasonState CurrentState;
     //季节控制天气出现的概率
 
     private void Awake()
@@ -23,6 +23,7 @@ public class SeasonStateMachine : StateMachineBase
             Instance = this;
         }
     }
+
 
     public void SetSeasonState(ESeasonState state)
     {

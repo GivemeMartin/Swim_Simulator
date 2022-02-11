@@ -13,7 +13,7 @@ namespace Custom_Tasks
         {
             if ((transform.position - movePos.Value).magnitude < 0.05f)
             {
-                Debug.Log("Delta:"+(transform.position - movePos.Value));
+                // Debug.Log("Delta:"+(transform.position - movePos.Value));
                 return TaskStatus.Success;
             }
                 
