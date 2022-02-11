@@ -6091,6 +6091,7 @@ MonoBehaviour:
   timeK: 1
   GTime: 290
   GameTime: 0
+  globalLight: {fileID: 834090478}
 --- !u!1001 &677784825
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6729,6 +6730,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1119748979}
   - component: {fileID: 1119748975}
+  - component: {fileID: 1119748976}
   m_Layer: 0
   m_Name: fish
   m_TagString: Untagged
@@ -6783,6 +6785,19 @@ MonoBehaviour:
       Version: 1.6.8
   gizmoViewMode: 2
   showBehaviorDesignerGizmo: 1
+--- !u!114 &1119748976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119748974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd8a1bd4805c6f748af6e54e73584e52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishSpecies: 0
 --- !u!4 &1119748979
 Transform:
   m_ObjectHideFlags: 0

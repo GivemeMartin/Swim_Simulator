@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using BehaviorDesigner.Runtime.ObjectDrawers;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class GameTimeManager : StateMachineBase
 {
@@ -22,11 +23,12 @@ public class GameTimeManager : StateMachineBase
     [Tooltip("游戏实际时间(每日)")]
     [SerializeField] private float GTime;
     [Tooltip("游戏内时间")]
-    [Range(0,24)]public int GameTime;
-    
+    [Range(0,24)]public float GameTime;
 
-    private static int gameTime;
+    private static float gameTime;
     private bool timing;
+
+    [SerializeField] private Light globalLight;
     private void Awake()
     {
         ConstructStates();
@@ -57,11 +59,12 @@ public class GameTimeManager : StateMachineBase
                 WeatherStateMachine.Instance.UpdateWeather();
                 GameDate++;
                 GTime = 0;
-                
             }
+            //同步光照（暂时不知道放在哪，先写这里）
+            globalLight.intensity = Mathf.Clamp(Mathf.Abs(Mathf.Sin(gameTime / 24f * Mathf.PI)),0.1f,1f)  ;
         }
 
-        gameTime = (int)(GTime * 0.08f);
+        gameTime = GTime * 0.08f;
         GameTime = gameTime;
         SetGameTime();
     }

@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using Random = UnityEngine.Random;
 
 public static class RandomUtils 
 {
@@ -106,6 +108,19 @@ public static class RandomUtils
                 break;
         }
         
+        
         return EWeatherState.Null;
+    }
+
+    public static FishEntry RandomFishEntry(EFishSpecies species)
+    {
+        float lengthK = Random.Range(0.85f,1.15f);
+        FishEntry tmp;
+        tmp.fishLength = 0;
+        tmp.fishLength = FishSheet.FishSpecies[species].baseLength * lengthK;
+        tmp.isFlashing = RandomBool(0.1f);
+        tmp.isRainbow = RandomBool(0.12f);
+
+        return tmp;
     }
 }
